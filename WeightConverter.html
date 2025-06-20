@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weight Converter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      user-select: none;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 35px;
+      width: 360px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 2.25rem;
+      margin-bottom: 30px;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    p.description {
+      font-weight: 500;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: #d1d1d1;
+      user-select: text;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+      text-align: left;
+      user-select: text;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      background: #fff;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+      user-select: text;
+    }
+    input[type="number"]::placeholder {
+      color: #999;
+      font-weight: 400;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      box-shadow: 0 0 10px 3px #6b63ff;
+      background: #fafafa;
+    }
+
+    .output {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+      min-height: 36px;
+      user-select: text;
+    }
+
+    hr {
+      margin: 30px 0;
+      border: none;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+    }
+
+    footer {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      user-select: none;
+      margin-top: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .container {
+        width: 100%;
+        padding: 30px 25px;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .output {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Weight Converter">
+    <h2>Weight Converter</h2>
+
+    <p class="description">Type a value in Pounds to convert to Kilograms:</p>
+    <label for="inputPounds">Pounds</label>
+    <input
+      type="number"
+      id="inputPounds"
+      placeholder="Enter weight in Pounds"
+      oninput="convertToKilograms(this.value)"
+      aria-describedby="outKilogram"
+      min="0"
+      step="any"
+      autocomplete="off"
+    />
+    <div class="output" id="outKilogram" aria-live="polite">0 kg</div>
+
+    <hr />
+
+    <p class="description">Type a value in Kilograms to convert to Pounds:</p>
+    <label for="inputKilogram">Kilograms</label>
+    <input
+      type="number"
+      id="inputKilogram"
+      placeholder="Enter weight in Kilograms"
+      oninput="convertToPounds(this.value)"
+      aria-describedby="outPounds"
+      min="0"
+      step="any"
+      autocomplete="off"
+    />
+    <div class="output" id="outPounds" aria-live="polite">0 lbs</div>
+
+    <footer>&copy; 2024 Weight Converter</footer>
+  </div>
+
+  <script>
+    function convertToKilograms(valNum) {
+      valNum = parseFloat(valNum);
+      if (!isNaN(valNum) && valNum >= 0) {
+        document.getElementById('outKilogram').innerText = `${(valNum / 2.20462).toFixed(2)} kg`;
+      } else {
+        document.getElementById('outKilogram').innerText = '0 kg';
+      }
+    }
+
+    function convertToPounds(valNum) {
+      valNum = parseFloat(valNum);
+      if (!isNaN(valNum) && valNum >= 0) {
+        document.getElementById('outPounds').innerText = `${(valNum * 2.20462).toFixed(2)} lbs`;
+      } else {
+        document.getElementById('outPounds').innerText = '0 lbs';
+      }
+    }
+  </script>
+</body>
+</html>

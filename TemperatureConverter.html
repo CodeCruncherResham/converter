@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Temperature Converter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+      animation: backgroundAnimation 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundAnimation {
+      0% { background: #ff7e5f; }
+      100% { background: #feb47b; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(255, 126, 95, 0.35);
+      padding: 45px 50px;
+      width: 380px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.04);
+      box-shadow: 0 14px 50px rgba(255, 126, 95, 0.6);
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 2.6rem;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 12px rgba(255, 126, 95, 0.5);
+      letter-spacing: 1.3px;
+    }
+
+    p {
+      margin: 8px 0 25px;
+      font-size: 1.15rem;
+      color: #ffe6dc;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      text-align: left;
+      color: #fff5f0;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.15rem;
+      border-radius: 18px;
+      border: none;
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-weight: 500;
+      box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+      text-align: center;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+      user-select: text;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"]:focus {
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 18px 5px rgba(255, 126, 95, 0.7);
+      color: #fff;
+    }
+
+    span {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 2rem;
+      color: #ffefd5;
+      padding: 10px 22px;
+      border-radius: 20px;
+      background: rgba(255, 126, 95, 0.3);
+      box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.3);
+      min-width: 110px;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    hr {
+      margin: 28px 0;
+      border: none;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        width: 90vw;
+        padding: 30px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Temperature Converter">
+    <h2>Temperature Converter</h2>
+    <p>Type a value in Fahrenheit to convert to Celsius:</p>
+    <label for="inputFahrenheit">Fahrenheit</label>
+    <input
+      type="number"
+      id="inputFahrenheit"
+      placeholder="Enter Fahrenheit"
+      aria-describedby="outputCelsius"
+      oninput="convertToCelsius(this.value)"
+    />
+    <p>Celsius: <span id="outputCelsius" aria-live="polite" aria-atomic="true">0</span></p>
+
+    <hr />
+
+    <p>Type a value in Celsius to convert to Fahrenheit:</p>
+    <label for="inputCelsius">Celsius</label>
+    <input
+      type="number"
+      id="inputCelsius"
+      placeholder="Enter Celsius"
+      aria-describedby="outputFahrenheit"
+      oninput="convertToFahrenheit(this.value)"
+    />
+    <p>Fahrenheit: <span id="outputFahrenheit" aria-live="polite" aria-atomic="true">0</span></p>
+
+    <footer>&copy; 2024 Temperature Converter</footer>
+  </div>
+
+  <script>
+    function convertToCelsius(valNum) {
+      valNum = parseFloat(valNum);
+      const output = document.getElementById('outputCelsius');
+      if (!isNaN(valNum)) {
+        output.textContent = ((valNum - 32) / 1.8).toFixed(2);
+      } else {
+        output.textContent = "0";
+      }
+    }
+
+    function convertToFahrenheit(valNum) {
+      valNum = parseFloat(valNum);
+      const output = document.getElementById('outputFahrenheit');
+      if (!isNaN(valNum)) {
+        output.textContent = ((valNum * 1.8) + 32).toFixed(2);
+      } else {
+        output.textContent = "0";
+      }
+    }
+  </script>
+</body>
+</html>
